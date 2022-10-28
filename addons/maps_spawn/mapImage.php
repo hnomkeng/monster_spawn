@@ -1,7 +1,7 @@
 <?php
 function mapImage($mapName, $small = false)
 {
-    $link = FLUX_DATA_DIR . '/maps/map' . ($small ? '_sm' : '') . '/' . $mapName . '.png';
+    $link = FLUX_DATA_DIR . '/maps/map/' . $mapName . '.png';
     $path = FLUX_ROOT . '/' . $link;
     return file_exists($path) ? $link : false;
 }
@@ -11,29 +11,18 @@ function npcImage($id)
     $path = FLUX_ROOT . '/' . $link;
     return file_exists($path) ? $link : false;
 }
-function conv($point, $size, $map = false, $map_image = 512){
-    if($map) {
-        $max = max($map->x, $map->y);
-        if($size != $max){
-            $point += ($max - $size) / 2;
-        }
-    } else {
-        $max = $size;
-    }
-    return $map_image / ($max / $point);
-}
 
 class FileLoad{
 
     protected $path;
     protected $errorCodeMessages = array(
-        1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
-        2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
-        3 => 'The uploaded file was only partially uploaded',
-        4 => 'No file was uploaded',
-        6 => 'Missing a temporary folder',
-        7 => 'Failed to write file to disk',
-        8 => 'A PHP extension stopped the file upload'
+        1 => 'ไฟล์ที่อัพโหลดเกินกว่าคำสั่ง upload_max_filesize ใน php.ini',
+        2 => 'ไฟล์ที่อัปโหลดเกินคำสั่ง MAX_FILE_SIZE ที่ระบุในรูปแบบ HTML',
+        3 => 'ไฟล์ที่อัพโหลดถูกอัพโหลดเพียงบางส่วนเท่านั้น',
+        4 => 'ไม่มีการอัปโหลดไฟล์',
+        6 => 'ไม่มีโฟลเดอร์ชั่วคราว',
+        7 => 'การเขียนไฟล์ลงดิสก์ไม่สำเร็จ',
+        8 => 'นามสกุล PHP หยุดอัพโหลดไฟล์'
     );
 
     public function load($file, $path){
@@ -46,7 +35,7 @@ class FileLoad{
                 return true;
             }
         }
-        return 'During the boot file error occurred';
+        return 'ในระหว่างที่เกิดข้อผิดพลาดไฟล์บูต';
     }
 
     public function delete(){

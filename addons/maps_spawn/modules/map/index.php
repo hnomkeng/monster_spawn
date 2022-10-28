@@ -1,9 +1,10 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-require __DIR__ . '/../../mapImage.php';
-error_reporting(0);
 
-$title = 'Map Database';
+require __DIR__ . '/../../mapImage.php';
+
+$title = 'List Map';
+
 try {
     $sth = $server->connection->getStatement('select * from `map_index` order by name');
     $sth->execute();
